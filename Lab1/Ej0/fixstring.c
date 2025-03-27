@@ -35,15 +35,17 @@ bool fstring_less_eq(fixstring s1, fixstring s2) {
     unsigned int length2 = fstring_length(s2);
     unsigned int min_length = (length1 < length2) ? length1 : length2;
     bool is_less_eq = true;
+    unsigned int aux = 0;
 
-    for (int i = 0; i < min_length; i++) {
+    for (unsigned int i = 0; i < min_length; i++) {
         if (s1[i] != s2[i]) { 
             is_less_eq = s1[i] <= s2[i];
-            i = FIXSTRING_MAX;                // no pasa nada por hacer esto como una especie de break?
+            i = min_length;                // no pasa nada por hacer esto como una especie de break?
         }
+        aux++;
     }
 
-    if (is_less_eq && length1 > length2) {
+    if (length1 > length2 && aux == min_length) {
         is_less_eq = false;
     }
 
